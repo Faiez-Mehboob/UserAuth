@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block styling %}
+    
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            UserAuth
+        </div>
+        
+        <div class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form id="signup-form" action="{{ url_for('auth.signup') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Create a username" value="{{ data['username'] if data else '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwd">Password</label>
+                    <input type="password" id="passwd" name="passwd" placeholder="Create a password" required>
+                    <span class="password-toggle" onclick="togglePassword('passwd')">👁️</span>
+                </div>
+                <div class="form-group">
+                    <label for="repasswd">Confirm Password</label>
+                    <input type="password" id="repasswd" name="repasswd" placeholder="Confirm your password" required>
+                    <span class="password-toggle" onclick="togglePassword('repasswd')">👁️</span>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div class="footer">
+                <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

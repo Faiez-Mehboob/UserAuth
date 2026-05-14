@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block styling %}
+    
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            UserAuth
+        </div>
+        
+        <div class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-dismissable flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form id="login-form" action="{{ url_for('auth.login') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" value="{{ data['username'] if data else '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwd">Password</label>
+                    <input type="password" id="passwd" name="passwd" placeholder="Enter your password" required>
+                    <span class="password-toggle" onclick="togglePassword('passwd')">👁️</span>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div class="footer">
+                <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        
+    </script>
+    
+{% endblock %}

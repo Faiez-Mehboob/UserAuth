@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserAuth - Login</title>
+    
+    <style>
+        :root {
+            --darkest-teal: #17252A; 
+            --dark-teal: #2B7A78;    
+            --medium-teal: #3AAFA9;  
+            --light-grayish-blue: #DEF2F1; 
+            --white: #FEFFFF;        
+            --shadow: rgba(0, 0, 0, 0.15);
+            --dark-gray: #2D2D2D; 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        {% block body %}
+        body {
+            background: linear-gradient(135deg, var(--darkest-teal) 0%, var(--dark-teal) 30%, var(--medium-teal) 70%, var(--light-grayish-blue) 100%);
+            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--darkest-teal);
+        }
+        {% endblock %}
+        .container {
+            background-color: var(--white); 
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px var(--shadow);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: var(--medium-teal); 
+            padding: 25px 0;
+            text-align: center;
+            color: var(--white); 
+            font-weight: 600;
+            font-size: 24px;
+            border-bottom: 3px solid var(--dark-teal); 
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--darkest-teal); 
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0; 
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            color: var(--darkest-teal); 
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--medium-teal);
+            box-shadow: 0 0 0 2px rgba(58, 175, 169, 0.3); 
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--dark-teal); 
+            color: var(--white); 
+            border: solid;
+            border-radius: 5ph;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            border: solid;
+            border-width: 3px;
+            border-color: var(--dark-teal);
+            color: var(--dark-teal);
+            background-color: var(--white); 
+            transition: ease 0.3s;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--darkest-teal); 
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: var(--darkest-teal); 
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            cursor: pointer;
+            color: var(--darkest-teal); 
+        }
+        
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .flash-message.fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+
+        .flash-error {
+            background-color: #ffebee; 
+            color: #f44336; 
+            border: 1px solid #ffcdd2; 
+        }
+        
+        .flash-success {
+            background-color: var(--light-grayish-blue); 
+            color: var(--darkest-teal); 
+            border: 1px solid var(--medium-teal); 
+        }
+        
+        {% block styling %}
+        
+        {% endblock %}
+    </style>
+
+</head>
+
+<body>
+    {% block content %} 
+    
+    {% endblock content %}
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            
+            if (flashMessages.length > 0) {
+                const displayTime = 1000;
+                
+                flashMessages.forEach(function(message) {
+                    setTimeout(function() {
+                        message.classList.add('fade-out');
+                        
+                        setTimeout(function() {
+                            message.remove();
+                        }, 500); 
+                    }, displayTime);
+                    
+                    message.addEventListener('click', function() {
+                        message.classList.add('fade-out');
+                        setTimeout(function() {
+                            message.remove();
+                        }, 500);
+                    });
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>
